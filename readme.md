@@ -2,6 +2,9 @@
 # Pesquisando 
 
 u-blox 8 GNSS modules
+Biblioteca para cáculo de azinute
+https://pypi.org/project/geopy/
+
 
 
 

@@ -74,6 +74,7 @@ sudo python Neo6mGPS.py
 O Script pode levar até 20 min para encontrar sinal. 
 ## 5. Examplo de código
 ```
+~~~python
 import serial
 import pynmea2
 def parseGPS(str):
@@ -87,17 +88,17 @@ serialPort = serial.Serial("/dev/ttyAMA0", 9600, timeout=0.5)
 while True:
     str = serialPort.readline()
     parseGPS(str)
-
+~~~
 ```
 ```
 
-è preciso matar o processo e adicionar a ferrramenta de gps no sispositivo
+è preciso matar o processo e adicionar a ferramenta de gps no sispositivo
 
 ```
 sudo killall gpsd
 sudo nano /etc/default/gpsd
 ```
-Edite o arquivo /etc/default/gpsd and e adicione o dispositivo na porta serial
+Edite o arquivo /etc/default/gpsd  e adicione o dispositivo na porta serial
 
 ```
 DEVICES="/dev/ttyAMA0"

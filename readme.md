@@ -1,3 +1,10 @@
+
+# Pesquisando 
+
+u-blox 8 GNSS modules
+
+
+
 # Python-NEO-6M-GPS-Raspberry-Pi
 Script Python para NEO-6M GPS no Raspberry Pi
 ## 1. Ligações

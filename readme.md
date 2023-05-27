@@ -6,6 +6,10 @@ u-blox 8 GNSS modules
 Biblioteca para cáculo de azinute
 https://pypi.org/project/geopy/
 
+Instalei os módulos geopy e outros mas não reconhecia quando executava o arquivo xxx.py
+Era porque instalei o módulo sem root
+errado => pip3 install geopy 
+certo =>  sudo pip3 install geopy 
 
 
 

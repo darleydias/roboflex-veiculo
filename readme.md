@@ -36,11 +36,11 @@ and replace all with the following lines:
 ```
 dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait quiet splash plymouth.ignore-serial-consoles
 ```
-* Change startup settings:
+* Configurações de boot:
 ```
 sudo nano /boot/config.txt
 ```
-and at the end of the file add the following lines:
+acrescentar oa final:
 ```
 dtparam=spi=on
 dtoverlay=pi3-disable-bt
@@ -49,33 +49,26 @@ enable_uart=1
 force_turbo=1
 init_uart_baud=9600
 ```
-* reboot the system:
+* reinicie o sistema:
 ```
 sudo reboot now
 ```
-* Configure the module for the 9600 rate:
+* configurar o boundrate para 9600 rate:
 ```
 stty -F /dev/ttyAMA0 9600
 ```
-* Connect AMA0 to the GPS Software 
+* Conectando o dispositivo com o GPS Software 
 
 sudo systemctl enable gpsd.socket
 sudo systemctl start gpsd.socket 
 sudo cgps -s
 ```
-## 4. Run the Example
-These instructions will get you a quick start with the script and please check before if you have the dependencies installed. Also connect the raspberry like the obove schemata.
-* Look if the terminal output of the sensor works
-```
-cat /dev/ttyAMA0
-```
-or use:
+## 4. Rodando no terminal
 ```
 cgps -s
 ```
-* Rodando o Script
+* Criando arquivo python
 ```
-cd Python-NEO-6M-GPS-Raspberry-Pi
 sudo python Neo6mGPS.py
 ```
 O Script pode levar até 20 min para encontrar sinal. 
@@ -98,15 +91,19 @@ while True:
 ```
 ```
 
+è preciso matar o processo e adicionar a ferrramenta de gps no sispositivo
 
-First kill the process and add the device to gpsd tool
 ```
 sudo killall gpsd
 sudo nano /etc/default/gpsd
 ```
-Edit the file /etc/default/gpsd and add your serial port in DEVICES, like
+Edite o arquivo /etc/default/gpsd and e adicione o dispositivo na porta serial
+
 ```
 DEVICES="/dev/ttyAMA0"
 ```
 * Restart the Software
 ```
+sudo systemctl enable gpsd.socket
+sudo systemctl start gpsd.socket 
+sudo cgps -s

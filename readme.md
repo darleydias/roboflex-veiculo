@@ -2,6 +2,13 @@
 # Pesquisando 
 
 u-blox 8 GNSS modules
+zed f9p GNSS module
+https://www.waveshare.com/wiki/ZED-F9P_GPS-RTK_HAT
+mosaicHAT
+
+https://pt.aliexpress.com/item/1005004605528964.html?spm=a2g0o.detail.1000060.1.af9f2a6clLqqwV&gps-id=pcDetailBottomMoreThisSeller&scm=1007.13339.291025.0&scm_id=1007.13339.291025.0&scm-url=1007.13339.291025.0&pvid=04b76dcb-2a8e-444a-90a2-40a24a2ef91e&_t=gps-id%3ApcDetailBottomMoreThisSeller%2Cscm-url%3A1007.13339.291025.0%2Cpvid%3A04b76dcb-2a8e-444a-90a2-40a24a2ef91e%2Ctpp_buckets%3A668%232846%238113%231998&pdp_npi=3%40dis%21BRL%21377.34%21354.68%21%21%21%21%21%402103244616852799388806622e4992%2112000029803075829%21rec%21BR%21&gatewayAdapt=glo2bra
+
+
 
 Biblioteca para cáculo de azinute
 https://pypi.org/project/geopy/

@@ -1,6 +1,10 @@
 
 # Pesquisando 
 
+## pyfirmata - ligando arduino no raspberry
+
+https://www.youtube.com/watch?v=q7u5KUM94Uc
+
 u-blox 8 GNSS modules
 zed f9p GNSS module
 https://www.waveshare.com/wiki/ZED-F9P_GPS-RTK_HAT

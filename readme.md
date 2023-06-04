@@ -11,6 +11,9 @@ https://www.youtube.com/watch?v=q7u5KUM94Uc
 
 https://blog.eletrogate.com/robo-seguidor-de-linha-tutorial-completo/
 
+## Configuração gnss
+
+https://defcon007.medium.com/using-a-gps-module-neo-7m-with-raspberry-pi-3-45100bc0bb41
 
 
 u-blox 8 GNSS modules

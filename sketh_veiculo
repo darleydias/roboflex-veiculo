@@ -1,0 +1,176 @@
+#include <AFMotor.h>
+#include "Ultrasonic.h"
+
+/* ##############################   DECLARAÇÕES   #####################################*/
+
+//Definição dos pinos de controle do motor
+
+//Pinos utilizados para controlar a velocidade de rotacao
+
+const int PINO_ENA = 8; 
+const int PINO_ENB = 9;
+
+// Pinos utilizados para controlar o sentido do motor
+
+const int PINO_IN1 = 30; 
+const int PINO_IN2 = 32;
+const int PINO_IN3 = 34;
+const int PINO_IN4 = 36;
+int i = 0; 
+const int TEMPO_RAMPA = 300;
+const int TEMPO_ESPERA = 1000;
+
+// Pinos Sensor utrasonico
+
+const int echoPin = 22; //echo
+const int trigPin = 24; //Trigger
+
+Ultrasonic ultrasonic(trigPin,echoPin);
+int distancia;
+String result;
+
+/* ##############################   SETUP   #####################################*/
+
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(PINO_ENA, OUTPUT); 
+  pinMode(PINO_ENB, OUTPUT);
+  pinMode(PINO_IN1, OUTPUT);
+  pinMode(PINO_IN2, OUTPUT);
+  pinMode(PINO_IN3, OUTPUT);
+  pinMode(PINO_IN4, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(trigPin, OUTPUT);
+
+  digitalWrite(PINO_IN1, LOW); 
+  digitalWrite(PINO_IN2, LOW);
+  digitalWrite(PINO_IN3, LOW);
+  digitalWrite(PINO_IN4, LOW);
+  digitalWrite(PINO_ENA, LOW);
+  digitalWrite(PINO_ENB, LOW);
+}
+
+/*################################ FUNÇÕES ###########################*/
+
+void hcsr04(){
+    digitalWrite(trigPin, LOW); 
+    delayMicroseconds(2); 
+    digitalWrite(trigPin, HIGH); 
+    delayMicroseconds(10); 
+    digitalWrite(trigPin, LOW); 
+    distancia = (ultrasonic.Ranging(CM)); //VARIÁVEL GLOBAL RECEBE O VALOR DA DISTÂNCIA MEDIDA
+    // result = String(distancia); //VARIÁVEL GLOBAL DO TIPO STRING RECEBE A DISTÂNCIA(CONVERTIDO DE INTEIRO PARA STRING)
+    result = distancia; //VARIÁVEL GLOBAL DO TIPO STRING RECEBE A DISTÂNCIA(CONVERTIDO DE INTEIRO PARA STRING)
+    Serial.println(result);
+    delay(500); 
+ }
+
+void andarFrente(){
+    analogWrite(PINO_ENA, 255);
+    analogWrite(PINO_ENB, 255);
+    digitalWrite(PINO_IN1, LOW); 
+    digitalWrite(PINO_IN2, HIGH);
+    digitalWrite(PINO_IN3, LOW);
+    digitalWrite(PINO_IN4, HIGH);
+}
+void andarTras(){
+    analogWrite(PINO_ENA, 255);
+    analogWrite(PINO_ENB, 255);
+    digitalWrite(PINO_IN1, HIGH); 
+    digitalWrite(PINO_IN2, LOW);
+    digitalWrite(PINO_IN3, HIGH);
+    digitalWrite(PINO_IN4, LOW);
+}
+
+void direita(){
+  
+   analogWrite(PINO_ENA, 255);
+   analogWrite(PINO_ENB, 255);
+   digitalWrite(PINO_IN1, LOW); 
+   digitalWrite(PINO_IN2, HIGH);
+   digitalWrite(PINO_IN3, LOW);
+   digitalWrite(PINO_IN4, LOW);
+}
+void esquerda(){
+   analogWrite(PINO_ENA, 255);
+   analogWrite(PINO_ENB, 255);
+   digitalWrite(PINO_IN1, LOW); 
+   digitalWrite(PINO_IN2, LOW);
+   digitalWrite(PINO_IN3, LOW);
+   digitalWrite(PINO_IN4, HIGH);
+}
+void parar(){
+  analogWrite(PINO_ENA, 255);
+   analogWrite(PINO_ENB, 255);
+   digitalWrite(PINO_IN1, LOW); 
+   digitalWrite(PINO_IN2, LOW);
+   digitalWrite(PINO_IN3, LOW);
+   digitalWrite(PINO_IN4, LOW);
+}
+void testaDistancia(){
+      if(result.toInt() < 20){
+        parar();  
+      }
+} 
+void desacelerar(){
+    //rampa de desaceleracao
+  for (i = 255; i >= 0; i=i-10){ 
+    analogWrite(PINO_ENA, i);
+    analogWrite(PINO_ENB, i);
+    digitalWrite(PINO_IN1, HIGH); 
+    digitalWrite(PINO_IN2, LOW);
+    digitalWrite(PINO_IN3, HIGH);
+    digitalWrite(PINO_IN4, LOW);
+    
+    delay(TEMPO_RAMPA); //intervalo para incrementar a variavel i
+  }
+}
+void acelerar(){
+  //rampa de aceleracao
+  for (i = 0; i < 256; i=i+10){ 
+    analogWrite(PINO_ENA, i);
+    analogWrite(PINO_ENB, i);
+    digitalWrite(PINO_IN1, LOW); 
+    digitalWrite(PINO_IN2, HIGH);
+    digitalWrite(PINO_IN3, LOW);
+    digitalWrite(PINO_IN4, HIGH);
+
+    delay(TEMPO_RAMPA); //intervalo para incrementar a variavel i
+  }
+
+}
+
+/* ###################################################################*/
+
+void loop(){
+  
+  delay(TEMPO_ESPERA); //intervalo de um segundo
+  
+  hcsr04();
+  testaDistancia();
+    if(Serial.available()){
+      char lido = char(Serial.read());
+      if(lido=='f'){ 
+        Serial.println(lido);
+          andarFrente();
+      }
+      
+      if(lido=='t'){ 
+          andarTras();
+          
+      }
+      if(lido=='d'){ 
+          direita();
+        
+      }
+      if(lido=='e'){ 
+          esquerda();
+      }
+      if(lido=='p'){ 
+          parar();
+      }   
+
+    }
+  
+}
